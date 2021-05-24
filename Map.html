@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.18/esri/themes/dark/main.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.13/css/all.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <script src="https://js.arcgis.com/4.18/"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script src="trans.js"></script>
+    <div class="container w-100 h-100">
+      <div
+        id="idSceneView"
+        class="text-center position-relative col m-auto w-100 h-auto"
+        style="margin: auto; float: left "
+      >
+        <div style="margin-top: 500px">
+          <button
+            class="btn btn-dark"
+            style="
+              position: absolute;
+              z-index: 1000;
+              left: 65px;
+              top: 15px;
+              float: right;
+              width: 33px;
+              height: 33px;
+              background-color: #242424;
+              border: none;
+            "
+            data-toggle="tooltip"
+            title="Waling mode"
+          >
+            <i class="fas fa-walking" id="btnWalk" style="color: lightgrey"></i>
+            <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+              <div
+                class="d-flex justify-content-center align-items-center h-100"
+              ></div>
+            </div>
+          </button>
+          <!-- <input type="button" value="Walk" id="btnWalk" style="position: absolute; z-index: 1000; left: 110px; float: right;background-color: #242424; "> -->
+          <button
+            class="btn btn-dark"
+            style="
+              position: absolute;
+              z-index: 1000;
+              left: 99px;
+              top: 15px;
+              float: right;
+              width: 33px;
+              height: 33px;
+              background-color: #242424;
+              border: none;
+            "
+            data-toggle="tooltip"
+            title="Driving mode"
+          >
+            <i class="fa fa-car" id="btnCar" style="color: lightgrey"></i>
+          </button>
+          <!-- <input type="button" value="Car" id="btnCar" style="position: absolute; z-index: 1000; left: 70px; float: right;"> -->
+        </div>
+        <!-- <div id="idMapView" style="width: 85%; height: 600px; margin: auto; float: left;"></div> -->
+        <div id="form">
+          <div
+            id="opt"
+            class="text-center row m-auto my-auto text-secondary"
+            style="background-color: rgba(169, 169, 169, 0.322)"
+          >
+            <!-- <input type="button" value="Egypt" id="btnGoTo" style="margin-left: 30px"><br>
+                        <div class="btn-group"> -->
+
+            <select
+              class="custom-select bg-dark m-1 bg-light text-white w-100"
+              name="Cities"
+              id="idCitiesDDL"
+              data-toggle="tooltip"
+              title="Your destination city"
+              style="
+                background-image: linear-gradient(
+                    45deg,
+                    transparent 50%,
+                    white 50%
+                  ),
+                  linear-gradient(135deg, white 50%, transparent 50%),
+                  linear-gradient(to right, #242424, #242424);
+                background-position: calc(100% - 20px) calc(1em + 2px),
+                  calc(100% - 15px) calc(1em + 2px), 100% 0;
+                background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+                background-repeat: no-repeat;
+              "
+            >
+              <option value="ALL">All Cities</option>
+            </select>
+
+            <!-- <select name="Cities" id="idCitiesDDL" style="margin-left: 30px">
+                            <option value="ALL">All Cities</option>
+                        </select><br> -->
+            <select
+              class="custom-select bg-dark m-1 bg-light text-white w-100"
+              name="Type"
+              id="idTypeDDL"
+              data-toggle="tooltip"
+              title="Monuments type you are interested in"
+              style="
+                background-image: linear-gradient(
+                    45deg,
+                    transparent 50%,
+                    white 50%
+                  ),
+                  linear-gradient(135deg, white 50%, transparent 50%),
+                  linear-gradient(to right, #242424, #242424);
+                background-position: calc(100% - 20px) calc(1em + 2px),
+                  calc(100% - 15px) calc(1em + 2px), 100% 0;
+                background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+                background-repeat: no-repeat;
+              "
+            >
+              <option value="ALL">All Categories</option>
+            </select>
+            <!-- <select name="Type" id="idTypeDDL" style="margin-left: 30px">
+                                <option value="ALL">All Categories</option>
+                            </select><br> -->
+            <!-- <select name="" id="services">
+                            <option value="" style="position: absolute;">choose your category</option>
+                        </select> -->
+            <select
+              class="custom-select bg-dark m-1 bg-light text-white w-100"
+              name=""
+              id="services"
+              data-toggle="tooltip"
+              title="Service you need in your location"
+              style="
+                background-image: linear-gradient(
+                    45deg,
+                    transparent 50%,
+                    white 50%
+                  ),
+                  linear-gradient(135deg, white 50%, transparent 50%),
+                  linear-gradient(to right, #242424, #242424);
+                background-position: calc(100% - 20px) calc(1em + 2px),
+                  calc(100% - 15px) calc(1em + 2px), 100% 0;
+                background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+                background-repeat: no-repeat;
+              "
+            >
+              <option value="" style="position: absolute">
+                Choose Service
+              </option>
+            </select>
+            <!-- <select name="" id="services" style="margin-left: 30px">
+                                <option value="" style="position: absolute;">choose your service</option>
+                            </select><br> -->
+            <input
+              type="button"
+              id="btnCapacity"
+              value="Check Availability"
+              class="btn btn-dark border m-1 w-100"
+              data-toggle="tooltip"
+              title="See if you can check in"
+            />
+            <input
+              type="button"
+              id="btnRcmnd"
+              value="Recommend Route "
+              class="btn btn-dark border m-1 w-100"
+              data-toggle="tooltip"
+              title="Get recommended attractions to visit "
+            />
+            <!-- <input type="button" value="Recommend Route " id="btnRcmnd" style="margin-left: 30px"> -->
+            <input
+              id="reset"
+              type="reset"
+              value="Reset"
+              class="btn btn-dark border m-1 w-100"
+              data-toggle="tooltip"
+              title="Back to default map"
+            /><br />
+          </div>
+        </div>
+        <span
+          class="fixed-bottom align-content-center ml-auto mr-auto esri-directions__horizontal-splitter mt-5"
+          style="max-height: 150px; max-width: 500px;  overflow-y: scroll"
+        >
+          <ul id="dir" style="list-style: none"></ul
+        ></span>
+      </div>
+    </div>
+  </body>
+</html>
